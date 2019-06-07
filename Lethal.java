@@ -7,7 +7,7 @@ public class Lethal extends Puzzles {
     }
 
     public boolean checkWinCondition() {//checks enemies health is < 0
-        if (enemyHero.health > 0) {
+        if (this.enemyHero.hp <= 0) {
             return true;
         } else {
             return false;

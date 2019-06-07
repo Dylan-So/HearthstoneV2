@@ -10,7 +10,7 @@ public class Survival extends Puzzles {
 
     public boolean checkWinCondition() {//checks if hero health is greater than zero
 
-        if (allyHero.health > 0) {
+        if (this.allyHero.hp >= 30) {
             return true;
 
         } else {

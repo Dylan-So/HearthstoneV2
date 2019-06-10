@@ -15,7 +15,7 @@ public class gameDeck extends Card{
             card = new ArrayList<Card>();
             Scanner sc = new Scanner(cards);
             do{
-                card.add(new Card(sc.next(), sc.nextInt(), sc.nextInt(), sc.next()));
+                card.add(new Card(sc.next(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.next()));
             }
             while(sc.hasNext() || sc.hasNextInt() || sc.hasNextLine());
         }catch(Exception e){
@@ -25,9 +25,5 @@ public class gameDeck extends Card{
     
     public Card getCard(int index){
         return card.get(index);
-    }
-    
-    public void search(){
-        
     }
 }

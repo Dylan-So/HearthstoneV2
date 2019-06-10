@@ -1,1 +1,0 @@
-# HearthstoneV2

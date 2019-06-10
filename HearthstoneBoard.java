@@ -149,7 +149,9 @@ public class HearthstoneBoard {
             }
 
         }
+
         System.out.println(line);
+        System.out.println("Choose your action: \"A\" - Attack | \"P\" - Play Card | \"R\" - Restart | \"E\" - Exit");
         System.out.println(line);
         
         

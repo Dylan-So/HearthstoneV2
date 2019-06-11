@@ -38,29 +38,20 @@ public class Hearthstone{
                     if(puzzleAns == 1){
                         //GameDeck playerDeck = new GameDeck("C:\\Users\\324616879\\Desktop\\boardClearCards.txt");
                         createPuzzle("Board Clear");
-                        bc1.printGame();
-                        playerAns = sc.next().charAt(0);
                         while(!bc1.checkWinConditions()){
+                            bc1.printGame();
+                            playerAns = sc.next().charAt(0);
                             if(playerAns == 'A'){
-                                boolean emptyBoard = true;
-                                for(int i = 0; i < 7; i++){
-                                    if(!bc1.fieldCards[i].name .equals("")){
-                                        emptyBoard = false;
-                                        break;
-                                    }
-                                }
-                                if(emptyBoard){
-                                    System.out.println("You can't attack without any cards on the field");
-                                }
                                 bc1.attackAction();
                             }else if(playerAns == 'P'){
-
+                                bc1.cardAction();
                             }else if(playerAns == 'R'){
                                 createPuzzle("Board Clear");
                             }else{
                                 System.out.println("....Leaving the game!");
                                 System.out.println("");
                             }
+                            bc1.checkDeaths(0);
                         }
                     }else if(puzzleAns == 2){
                         Puzzles[] lethalLvls = new Lethal[3];

@@ -3,12 +3,13 @@ package hearthstone;
 public class Card extends Hearthstone{
     public String name;
     public int hp;
+    public int maxHP;
     public int attack;
     public String condition;
     public int cost;
     public boolean firstTurn;
     
-    public Card(String n, int health, int atk, int c, String con){
+    public Card(String n, int health, int max, int atk, int c, String con){
         //super(n, health, atk);
         name = n;
         hp = health;
@@ -22,6 +23,7 @@ public class Card extends Hearthstone{
         //super("", 0, 0);
         name = "";
         hp = 0;
+        maxHP = 0;
         attack = 0;
         cost = 0;
         condition = "";

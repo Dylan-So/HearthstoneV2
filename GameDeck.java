@@ -16,7 +16,7 @@ public class GameDeck extends Card{
             card = new ArrayList<>();
             Scanner sc = new Scanner(cardFile);
             while(sc.hasNextLine() || sc.hasNextInt()){
-                card.add(new Card(sc.nextLine(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.next()));
+                card.add(new Card(sc.nextLine(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.next()));
                 sc.nextLine();
             }
         }catch(Exception e){

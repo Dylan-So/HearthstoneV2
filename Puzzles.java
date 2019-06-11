@@ -249,5 +249,34 @@ abstract public class Puzzles{
         }
 
     }
+    
+    public void sortHand(){//sort hand in order of mana - least to greatest
+        for(int i = 0; i < 10; i++){
+            int min = i;
+            boolean check = true;
+            while(check && i < 10){//checks for the next min card that isnt empty
+                if(this.hand[i].name.equals("")){
+                    i++;
+                }else{
+                    check = false;
+                    min = i;
+                }
+            }
+                      
+            for(int j = min + 1; j < 10; j++){//checks thru the array for loswest mana card
+                if(this.hand[j].name.equals("")){
+                    j++;
+                }else if(this.hand[j].cost < this.hand[min].cost){
+                    min = j;
+                }
+            }
+            
+            if(!this.hand[i].name.equals("") && !this.hand[min].name.equals("")){//if both indexes arent empty switch cards
+                int temp = this.hand[min].cost;
+                this.hand[min].cost = this.hand[i].cost;
+                this.hand[i].cost = temp;
+            }
+        }
+    }
 
 }

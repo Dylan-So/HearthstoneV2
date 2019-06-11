@@ -11,9 +11,9 @@ public class BoardClear extends Puzzles {
     public BoardClear(){
         super(null, null, null, null, null, null, 0, 0, 0, null, null);
     }
-    public boolean checkWinConditions(HearthstoneBoard b1) {//checks all enemy minions have been removed
+    public boolean checkWinConditions() {//checks all enemy minions have been removed
         for(int i = 0; i < 7; i++){
-            if(!b1.enemyFieldCards[i].name.equals("empty")){
+            if(!this.enemyFieldCards[i].name.equals("empty")){
                 return false;
             }
         }

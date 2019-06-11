@@ -1,5 +1,7 @@
 package hearthstone;
 
+import java.util.Scanner;
+
 public class HearthstoneBoard {
 
     Card deck[];
@@ -58,7 +60,7 @@ public class HearthstoneBoard {
                 System.out.print("\t|");
             }
         }
-        
+
         System.out.println("");
         System.out.println("");
         System.out.println(line2);//divider between enemy and ally minions
@@ -101,7 +103,7 @@ public class HearthstoneBoard {
 
         }
         System.out.println("\n" + line3);
-        
+
         System.out.print("Your Hand    ||");//15 chars
         for (int i = 0; i < 10; i++) {//print ally card names
             if (this.hand[i].name.equals("")) {//print empty card
@@ -113,7 +115,7 @@ public class HearthstoneBoard {
             }
         }
         System.out.println("");
-        
+
         System.out.print("               ||");//15 chars
         for (int i = 0; i < 10; i++) {//print cost of the card
             if (this.hand[i].name.equals("")) {//print empty card
@@ -124,7 +126,7 @@ public class HearthstoneBoard {
 
         }
         System.out.println("");
-        
+
         System.out.print("               ||");//15 chars
         for (int i = 0; i < 10; i++) {//print card attack, hp
             if (this.hand[i].name.equals("") || this.hand[i].condition.contains("Spell")) {//print empty card
@@ -135,7 +137,7 @@ public class HearthstoneBoard {
 
         }
         System.out.println("");
-        
+
         System.out.print("               ||");//15 chars
         for (int i = 0; i < 10; i++) {//print card conditions
             if (this.hand[i].name.equals("") || this.hand[i].condition.contains("Spell")) {//print empty card
@@ -153,8 +155,71 @@ public class HearthstoneBoard {
         System.out.println(line);
         System.out.println("Choose your action: \"A\" - Attack | \"P\" - Play Card | \"R\" - Restart | \"E\" - Exit");
         System.out.println(line);
-        
-        
 
     }
+
+    public void attackAction() {
+        Scanner scInt = new Scanner(System.in);
+
+        for (int i = 0; i < 7; i++) {//prints each avaliable minion that can attack
+            if (!this.fieldCards[i].name.equals("")) {
+                if (!this.fieldCards[i].firstTurn) {
+                    System.out.println("[" + i + "] - " + this.fieldCards[i].name);
+                }
+            }
+        }
+
+        System.out.println("Choose a minion to attack with");
+        int choice1 = scInt.nextInt();//selects the minion to attack with
+        System.out.println("");
+
+        for (int i = 0; i < 7; i++) {//prints each avaliable enemy minion
+            if (!this.fieldCards[i].name.equals("")) {
+                System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
+            }
+        }
+
+        System.out.println("Choose the minion to attack");
+        int choice2 = scInt.nextInt();//selects the minion to be attacked
+        System.out.println("");
+
+        this.fieldCards[choice1].attack(this.enemyFieldCards[choice2]);//issue for dylan to deal with
+
+    }
+
+    public void cardAction() {
+        Scanner scInt = new Scanner(System.in);
+
+        for (int i = 0; i < 10; i++) {//prints each avaliable card that can be played
+            if (!this.hand[i].name.equals("")) {
+                if (this.hand[i].cost <= this.currentMana) {
+                    System.out.println("[" + i + "] - " + this.hand[i].name + "(" + this.hand[i].cost + " mana)");
+                }
+            }
+        }
+
+        System.out.println("Choose the card to be played");
+        int choice1 = scInt.nextInt();//selects the card
+        System.out.println("");
+
+        if (!this.hand[choice1].condition.contains("Spell")) {//if the card is a minion card
+            boolean check = false;
+            for (int i = 0; i < 7; i++) {//checks if there is room on the field to play a minion
+                if (this.fieldCards[i].name.equals("")) {
+                    check = true;
+                }
+            }
+            if (check) {
+                System.out.println("Choose where to play the minion (1-7)");
+                int choice2 = scInt.nextInt();//selects the position to place the minion
+                System.out.println("");
+                
+                //////////////////place down minion method
+            }
+        } else {//if th card is a spell card
+            //////////////////play spell card method
+        }
+
+    }
+
 }

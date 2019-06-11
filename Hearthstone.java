@@ -40,24 +40,27 @@ public class Hearthstone{
                         createPuzzle("Board Clear");
                         bc1.printGame();
                         playerAns = sc.next().charAt(0);
-                        if(playerAns == 'A'){
-                            boolean emptyBoard = true;
-                            for(int i = 0; i < 7; i++){
-                                if(!bc1.fieldCards[i].name .equals("")){
-                                    emptyBoard = false;
-                                    break;
+                        while(!bc1.checkWinConditions()){
+                            if(playerAns == 'A'){
+                                boolean emptyBoard = true;
+                                for(int i = 0; i < 7; i++){
+                                    if(!bc1.fieldCards[i].name .equals("")){
+                                        emptyBoard = false;
+                                        break;
+                                    }
                                 }
-                            }
-                            if(emptyBoard){
-                                System.out.println("You can't attack without any cards on the field");
-                            }
-                        }else if(playerAns == 'P'){
+                                if(emptyBoard){
+                                    System.out.println("You can't attack without any cards on the field");
+                                }
+                                bc1.attackAction();
+                            }else if(playerAns == 'P'){
 
-                        }else if(playerAns == 'R'){
-                            createPuzzle("Board Clear");
-                        }else{
-                            System.out.println("....Leaving the game!");
-                            System.out.println("");
+                            }else if(playerAns == 'R'){
+                                createPuzzle("Board Clear");
+                            }else{
+                                System.out.println("....Leaving the game!");
+                                System.out.println("");
+                            }
                         }
                     }else if(puzzleAns == 2){
                         Puzzles[] lethalLvls = new Lethal[3];

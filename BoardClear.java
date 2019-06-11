@@ -9,7 +9,7 @@ public class BoardClear extends Puzzles {
     }
     
     public BoardClear(){
-        super(null, null, null, null, null, null, 0, 0, 0, null, null);
+        super(new ArrayList<>(), new ArrayList<>(), null, null, null, null, 0, 0, 0, null, null);
     }
     public boolean checkWinConditions() {//checks all enemy minions have been removed
         for(int i = 0; i < 7; i++){

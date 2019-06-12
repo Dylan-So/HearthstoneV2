@@ -3,7 +3,7 @@ package hearthstone;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-abstract public class Puzzles{
+abstract public class Puzzles {
 
     ArrayList<Card> deck;
     ArrayList<Card> enemyDeck;
@@ -17,7 +17,7 @@ abstract public class Puzzles{
     Hero enemyHero;
     int cardsPlayed;
 
-    public Puzzles(ArrayList<Card> d, ArrayList<Card> ed, Card[] h, Card[] eh, Card[] fc, Card[] efc, int cp, int sm, int cm, Hero aHero, Hero eHero){
+    public Puzzles(ArrayList<Card> d, ArrayList<Card> ed, Card[] h, Card[] eh, Card[] fc, Card[] efc, int cp, int sm, int cm, Hero aHero, Hero eHero) {
         deck = new ArrayList<Card>(d);
         enemyDeck = new ArrayList<Card>(ed);
         hand = h;
@@ -30,14 +30,15 @@ abstract public class Puzzles{
         allyHero = aHero;
         enemyHero = eHero;
     }
+
     public Puzzles() {
-        deck =  new ArrayList<Card>();
+        deck = new ArrayList<Card>();
         enemyDeck = new ArrayList<Card>();
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             hand[i] = new Card();
             enemyHand[i] = new Card();
         }
-        for(int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             fieldCards[i] = new Card();
             enemyFieldCards[i] = new Card();
         }
@@ -47,12 +48,12 @@ abstract public class Puzzles{
         allyHero = new Hero();
         enemyHero = new Hero();
     }
-    
-    public void checkDeaths(int index){
-        if(index == 7){
-            
-        }else{
-            if(this.fieldCards[index].hp <= 0){
+
+    public void checkDeaths(int index) {
+        if (index == 7) {
+
+        } else {
+            if (this.fieldCards[index].hp <= 0) {
                 this.fieldCards[index].name = "";
                 this.fieldCards[index].hp = 0;
                 this.fieldCards[index].attack = 0;
@@ -60,7 +61,7 @@ abstract public class Puzzles{
                 this.fieldCards[index].cost = 0;
                 checkDeaths(index + 1);
             }
-            if(this.enemyFieldCards[index].hp <= 0){
+            if (this.enemyFieldCards[index].hp <= 0) {
                 this.enemyFieldCards[index].name = "";
                 this.enemyFieldCards[index].hp = 0;
                 this.enemyFieldCards[index].attack = 0;
@@ -70,18 +71,19 @@ abstract public class Puzzles{
             }
         }
     }
+
     public void printGame() {
-        String line = "________________________________________________________________________________________";
-        String line2 = "><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><";
-        String line3 = "****************************************************************************************";
+        String line = "_____________________________________________________________________________________________________";
+        String line2 = "><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><";
+        String line3 = "****************************************************************************************************";
 
         System.out.println(line3);
         System.out.print("Enemy Minions ||");//15 chars
         for (int i = 0; i < 7; i++) {//print enemy card names
             if (this.enemyFieldCards[i].name.equals("")) {//print empty card
                 System.out.print("\t|");
-            } else if (this.enemyFieldCards[i].name.length() > 6) {//print card name limit to 6 chars
-                System.out.print(" " + this.enemyFieldCards[i].name.substring(0, 8) + " |");
+            } else if (this.enemyFieldCards[i].name.length() > 6) {//print card name limit to 5 chars
+                System.out.print(" " + this.enemyFieldCards[i].name.substring(0, 5) + "\t|");
             } else {//print card name
                 System.out.print(" " + this.enemyFieldCards[i].name + "\t|");
             }
@@ -93,7 +95,7 @@ abstract public class Puzzles{
             if (this.enemyFieldCards[i].name.equals("")) {//print empty card
                 System.out.print("\t|");
             } else {//print enemy attack, hp
-                System.out.print(" " + this.enemyFieldCards[i].attack + "ATK " + this.enemyFieldCards[i].hp + "HP |");
+                System.out.print(" " + this.enemyFieldCards[i].attack + "A " + this.enemyFieldCards[i].hp + "H\t|");
             }
         }
         System.out.println("");
@@ -103,14 +105,14 @@ abstract public class Puzzles{
             if (this.enemyFieldCards[i].name.equals("")) {//print empty card
                 System.out.print("\t|");
             } else {//print enemy conditions
-                if(this.enemyFieldCards[i].condition.equals("N/A")){
+                if (this.enemyFieldCards[i].condition.equals("N/A")) {
                     System.out.print("\t  |");
-                }else{
+                } else {
                     String arrConditions[] = this.enemyFieldCards[i].condition.split(",");
                     for (int j = 0; j < arrConditions.length; j++) {//prints out every condition that the minion contains
                         System.out.print(" " + arrConditions[j].charAt(0) + "/");
                     }
-                    System.out.print("\t  |");
+                    System.out.print("\t|");
                 }
             }
         }
@@ -124,8 +126,8 @@ abstract public class Puzzles{
         for (int i = 0; i < 7; i++) {//print ally card names
             if (this.fieldCards[i].name.equals("")) {//print empty card
                 System.out.print("\t|");
-            } else if (this.fieldCards[i].name.length() > 6) {//print card name limit to 6 chars
-                System.out.print(" " + this.fieldCards[i].name.substring(0, 8) + " |");
+            } else if (this.fieldCards[i].name.length() > 6) {//print card name limit to 5 chars
+                System.out.print(" " + this.fieldCards[i].name.substring(0, 5) + " |");
             } else {//print card name
                 System.out.print(" " + this.fieldCards[i].name + "\t|");
             }
@@ -137,7 +139,7 @@ abstract public class Puzzles{
             if (this.fieldCards[i].name.equals("")) {//print empty card
                 System.out.print("\t|");
             } else {//print enemy attack, hp
-                System.out.print(" " + this.fieldCards[i].attack + "ATK " + this.fieldCards[i].hp + "HP |");
+                System.out.print(" " + this.fieldCards[i].attack + "A " + this.fieldCards[i].hp + "H\t|");
             }
 
         }
@@ -152,7 +154,7 @@ abstract public class Puzzles{
                 for (int j = 0; j < arrConditions.length; j++) {//prints out every condition that the minion contains
                     System.out.print(" " + arrConditions[j].charAt(0) + "/");
                 }
-                System.out.print("\t  |");
+                System.out.print("\t|");
             }
 
         }
@@ -162,8 +164,8 @@ abstract public class Puzzles{
         for (int i = 0; i < 10; i++) {//print ally card names
             if (this.hand[i].name.equals("")) {//print empty card
                 System.out.print("\t|");
-            } else if (this.hand[i].name.length() > 6) {//print card name limit to 6 chars
-                System.out.print(" " + this.hand[i].name.substring(0, 8) + " |");
+            } else if (this.hand[i].name.length() > 6) {//print card name limit to 5 chars
+                System.out.print(" " + this.hand[i].name.substring(0, 5) + "\t|");
             } else {//print card name
                 System.out.print(" " + this.hand[i].name + "");
             }
@@ -175,7 +177,7 @@ abstract public class Puzzles{
             if (this.hand[i].name.equals("")) {//print empty card
                 System.out.print("\t|");
             } else {//print cost
-                System.out.print(" " + this.hand[i].cost + " MANA   |");
+                System.out.print(" " + this.hand[i].cost + "Mana\t|");
             }
 
         }
@@ -186,13 +188,13 @@ abstract public class Puzzles{
             if (this.hand[i].name.equals("") || this.hand[i].condition.contains("Spell")) {//print empty card
                 System.out.print("\t|");
             } else {//print card attack, hp
-                System.out.print(" " + this.hand[i].attack + "ATK," + this.hand[i].hp + "HP |");
+                System.out.print(" " + this.hand[i].attack + "A " + this.hand[i].hp + "H\t|");
             }
 
         }
         System.out.println("");
         System.out.print("              ||");//15 chars
-        
+
         for (int i = 0; i < 10; i++) {//print card conditions
             if (this.hand[i].name.equals("") || this.hand[i].condition.contains("Spell")) {//print empty card
                 System.out.print("\t|");
@@ -201,7 +203,7 @@ abstract public class Puzzles{
                 for (int j = 0; j < arrConditions.length; j++) {//prints out every condition that the minion contains
                     System.out.print(" " + arrConditions[j].charAt(0) + "/");
                 }
-                System.out.print("\t   |");
+                System.out.print("\t|");
             }
 
         }
@@ -216,17 +218,17 @@ abstract public class Puzzles{
     public void attackAction() {
         Scanner scInt = new Scanner(System.in);
         boolean emptyBoard = true;
-        for(int i = 0; i < 7; i++){
-            if(!this.fieldCards[i].name .equals("")){
+        for (int i = 0; i < 7; i++) {
+            if (!this.fieldCards[i].name.equals("")) {
                 emptyBoard = false;
                 break;
             }
         }
-        if(emptyBoard){
+        if (emptyBoard) {
             emptyBoard = false;
             System.out.println("You can't attack without any cards on the field (Press any button to continue)");
             scInt.next();
-        }else{
+        } else {
             for (int i = 0; i < 7; i++) {//prints each avaliable minion that can attack
                 if (!this.fieldCards[i].name.equals("")) {
                     if (!this.fieldCards[i].firstTurn) {
@@ -268,26 +270,18 @@ abstract public class Puzzles{
         System.out.println("Choose the card to be played");
         int choice1 = scInt.nextInt();//selects the card
         System.out.println("");
-        if(this.hand[choice1].condition.contains("Battlecry")){
-             boolean check = false;
+
+        if (!this.hand[choice1].condition.contains("Spell")) {//if the card is a minion card
+            boolean check = false;
             for (int i = 0; i < 7; i++) {//checks if there is room on the field to play a minion
                 if (this.fieldCards[i].name.equals("")) {
                     check = true;
                 }
             }
-            if (check) {
-                System.out.println("Choose where to play the minion (1-7)");
-                int choice2 = scInt.nextInt();//selects the position to place the minion
-                while(!this.fieldCards[choice2 - 1].name.equals("")){
-                    System.out.println("There is already a card here, please choose a different position: ");
-                    choice2 = scInt.nextInt();
-                }
-                this.fieldCards[choice2 - 1] = this.hand[choice1];
-                this.currentMana -= this.hand[choice1].cost;
-                this.hand[choice1] = new Card();
-                System.out.println("");
-            }
-            if(this.hand[choice1].name.equals("Elven Archer")){
+
+            if (this.hand[choice1].condition.contains("Battlecry")) {//for battlecry minions
+
+                if (this.hand[choice1].name.equals("Elven Archer")) {
                     for (int i = 0; i < 7; i++) {//prints each avaliable enemy minion
                         if (!this.fieldCards[i].name.equals("")) {
                             System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
@@ -297,18 +291,13 @@ abstract public class Puzzles{
                     int attackChoice = scInt.nextInt();//selects the minion to be attacked
                     System.out.println("");
                     this.enemyFieldCards[attackChoice].hp -= 1;
-            }
-        }else if (!this.hand[choice1].condition.contains("Spell")) {//if the card is a minion card
-            boolean check = false;
-            for (int i = 0; i < 7; i++) {//checks if there is room on the field to play a minion
-                if (this.fieldCards[i].name.equals("")) {
-                    check = true;
                 }
             }
+
             if (check) {
                 System.out.println("Choose where to play the minion (1-7)");
                 int choice2 = scInt.nextInt();//selects the position to place the minion
-                while(!this.fieldCards[choice2 - 1].name.equals("")){
+                while (!this.fieldCards[choice2 - 1].name.equals("")) {
                     System.out.println("There is already a card here, please choose a different position: ");
                     choice2 = scInt.nextInt();
                 }
@@ -316,179 +305,179 @@ abstract public class Puzzles{
                 this.currentMana -= this.hand[choice1].cost;
                 this.hand[choice1] = new Card();
                 System.out.println("");
-                
+
                 //////////////////place down minion method
             }
-            if(this.hand[choice1].condition.equals("Rush") || this.hand[choice1].condition.equals("Charge")){
+            if (this.hand[choice1].condition.equals("Rush") || this.hand[choice1].condition.equals("Charge")) {
                 this.hand[choice1].firstTurn = false;
             }
-        }else {//if th card is a spell card
-            switch(this.hand[choice1].getName()){
+        } else {//if th card is a spell card
+            switch (this.hand[choice1].getName()) {
                 case "Holy Nova":
-                    for(int i = 0; i < 7; i++){
-                        if(!this.enemyFieldCards[i].name.equals("")){
+                    for (int i = 0; i < 7; i++) {
+                        if (!this.enemyFieldCards[i].name.equals("")) {
                             this.enemyFieldCards[i].hp -= 2;
                             this.enemyHero.hp -= 2;
                         }
-                        if(!this.fieldCards[i].name.equals("")){
-                            if(this.fieldCards[i].hp + 2 > this.fieldCards[i].maxHp){
-                                this.fieldCards[i].hp = this.fieldCards[i].maxHp;
-                            }else{
+                        if (!this.fieldCards[i].name.equals("")) {
+                            if (this.fieldCards[i].hp + 2 > this.fieldCards[i].maxHP) {
+                                this.fieldCards[i].hp = this.fieldCards[i].maxHP;
+                            } else {
                                 this.fieldCards[i].hp += 2;
                             }
                         }
                     }
-                    if(this.allyHero.hp + 2 > 30){
+                    if (this.allyHero.hp + 2 > 30) {
                         this.allyHero.hp = 30;
-                    }else{
+                    } else {
                         this.allyHero.hp += 2;
                     }
-                    
+
                 case "Spirit Lash":
                     int healCounter = 0;
-                    for(int i = 0; i < 7; i++){
-                        if(!this.enemyFieldCards[i].name.equals("")){
+                    for (int i = 0; i < 7; i++) {
+                        if (!this.enemyFieldCards[i].name.equals("")) {
                             this.enemyFieldCards[i].hp -= 1;
                             healCounter += 1;
                         }
                     }
-                    if(this.allyHero.hp + healCounter > 30){
+                    if (this.allyHero.hp + healCounter > 30) {
                         this.allyHero.hp = 30;
-                    }else{
+                    } else {
                         this.allyHero.hp += healCounter;
                     }
-                    
+
                 case "The Coin":
                     this.currentMana += 1;
             }
         }
 
     }
-    
-    public void attack(Card e1, Card e2){
-        if((e2.hp -= e1.attack) <= 0 && (e1.hp -= e1.attack) <= 0){
-                System.out.println("You attacked this card and both of you died.");
-                e2.setAttack(0);
-                e2.setHp(0);
-                e2.setName("");
-                e1.setAttack(0);
-                e1.setHp(0);
-                e1.setName("");
-                if(e2.condition.equals("Deathrattle")){
-                    switch (e2.getName()){
-                        case "Infested Wolf":
-                            Card spider = new Card("Spider", 1, 1, 1, 1, "N/A");
-                            this.fieldCards[0] = spider;
-                            this.fieldCards[1] = spider;
-                            
-                        case "Rat Pack":
-                            int counter = e2.attack;
-                            Card rat = new Card("Rat", 1, 1, 1, 1, "N/A");
-                            for(int i = 0; i < 7; i++){
-                                if(counter == 0){
-                                    break;
-                                }else if(!this.fieldCards[i].name.equals("")){
-                                    this.fieldCards[i] = rat;
-                                    this.fieldCards[i] = rat;
-                                    counter -=1;
-                                }
+
+    public void attack(Card e1, Card e2) {
+        if ((e2.hp -= e1.attack) <= 0 && (e1.hp -= e1.attack) <= 0) {
+            System.out.println("You attacked this card and both of you died.");
+            e2.setAttack(0);
+            e2.setHp(0);
+            e2.setName("");
+            e1.setAttack(0);
+            e1.setHp(0);
+            e1.setName("");
+            if (e2.condition.equals("Deathrattle")) {
+                switch (e2.getName()) {
+                    case "Infested Wolf":
+                        Card spider = new Card("Spider", 1, 1, 1, 1, "N/A");
+                        this.fieldCards[0] = spider;
+                        this.fieldCards[1] = spider;
+
+                    case "Rat Pack":
+                        int counter = e2.attack;
+                        Card rat = new Card("Rat", 1, 1, 1, 1, "N/A");
+                        for (int i = 0; i < 7; i++) {
+                            if (counter == 0) {
+                                break;
+                            } else if (!this.fieldCards[i].name.equals("")) {
+                                this.fieldCards[i] = rat;
+                                this.fieldCards[i] = rat;
+                                counter -= 1;
                             }
-                    }
-                }
-                if(e1.condition.equals("Deathrattle")){
-                    switch (e1.getName()){
-                        case "Infested Wolf":
-                            Card spider = new Card("Spider", 1, 1, 1, 1, "N/A");
-                            this.fieldCards[0] = spider;
-                            this.fieldCards[1] = spider;
-                            
-                        case "Rat Pack":
-                            int counter = e2.attack;
-                            Card rat = new Card("Rat", 1, 1, 1, 1, "N/A");
-                            for(int i = 0; i < 7; i++){
-                                if(counter == 0){
-                                    break;
-                                }else if(!this.fieldCards[i].name.equals("")){
-                                    this.fieldCards[i] = rat;
-                                    this.fieldCards[i] = rat;
-                                    counter -=1;
-                                }
-                            }
-                    }
-                }
-            }else if((e2.hp -= e1.attack) <= 0){
-                e2.hp -= e1.attack;
-                e1.hp -= e2.attack;
-                System.out.println("You killed this card. The health has been reduced to 0, " + e1.name + "'s hp is " + e1.getHp());
-                e1.setName("");
-                if(e2.condition.equals("Deathrattle")){
-                    switch (e2.getName()){
-                        case "Infested Wolf":
-                            Card spider = new Card("Spider", 1, 1, 1, 1, "N/A");
-                            this.fieldCards[0] = spider;
-                            this.fieldCards[1] = spider;
-                            
-                        case "Rat Pack":
-                            int counter = e2.attack;
-                            Card rat = new Card("Rat", 1, 1, 1, 1, "N/A");
-                            for(int i = 0; i < 7; i++){
-                                if(counter == 0){
-                                    break;
-                                }else if(!this.fieldCards[i].name.equals("")){
-                                    this.fieldCards[i] = rat;
-                                    this.fieldCards[i] = rat;
-                                    counter -=1;
-                                }
-                            }
-                    }
-                }
-            }else{
-                e1.setHp(e1.hp - e2.getAttack());
-                e2.setHp(e2.getHp() - e1.getAttack());
-                System.out.println("You attacked this card, " + e1.name + "'s hp is " + e1.hp + ", " + e2.name + "'s hp is " + e2.hp);
-                if(e2.condition.equals("Deathrattle")){
-                    switch (e2.name){
-                        case "Infested Wolf":
-                            Card spider = new Card("Spider", 1, 1, 1, 1, "N/A");
-                            this.fieldCards[0] = spider;
-                            this.fieldCards[1] = spider;
-                            
-                        case "Rat Pack":
-                            int counter = e2.attack;
-                            Card rat = new Card("Rat", 1, 1, 1, 1, "N/A");
-                            for(int i = 0; i < 7; i++){
-                                if(counter == 0){
-                                    break;
-                                }else if(!this.fieldCards[i].name.equals("")){
-                                    this.fieldCards[i] = rat;
-                                    this.fieldCards[i] = rat;
-                                    counter -=1;
-                                }
-                            }
-                    }
-                }
-                if(e1.condition.equals("Deathrattle")){
-                    switch (e1.name){
-                        case "Infested Wolf":
-                            Card spider = new Card("Spider", 1, 1, 1, 1, "N/A");
-                            this.fieldCards[0] = spider;
-                            this.fieldCards[1] = spider;
-                            
-                        case "Rat Pack":
-                            int counter = e2.attack;
-                            Card rat = new Card("Rat", 1, 1, 1, 1, "N/A");
-                            for(int i = 0; i < 7; i++){
-                                if(counter == 0){
-                                    break;
-                                }else if(!this.fieldCards[i].name.equals("")){
-                                    this.fieldCards[i] = rat;
-                                    this.fieldCards[i] = rat;
-                                    counter -=1;
-                                }
-                            }
-                    }
+                        }
                 }
             }
+            if (e1.condition.equals("Deathrattle")) {
+                switch (e1.getName()) {
+                    case "Infested Wolf":
+                        Card spider = new Card("Spider", 1, 1, 1, 1, "N/A");
+                        this.fieldCards[0] = spider;
+                        this.fieldCards[1] = spider;
+
+                    case "Rat Pack":
+                        int counter = e2.attack;
+                        Card rat = new Card("Rat", 1, 1, 1, 1, "N/A");
+                        for (int i = 0; i < 7; i++) {
+                            if (counter == 0) {
+                                break;
+                            } else if (!this.fieldCards[i].name.equals("")) {
+                                this.fieldCards[i] = rat;
+                                this.fieldCards[i] = rat;
+                                counter -= 1;
+                            }
+                        }
+                }
+            }
+        } else if ((e2.hp -= e1.attack) <= 0) {
+            e2.hp -= e1.attack;
+            e1.hp -= e2.attack;
+            System.out.println("You killed this card. The health has been reduced to 0, " + e1.name + "'s hp is " + e1.getHp());
+            e1.setName("");
+            if (e2.condition.equals("Deathrattle")) {
+                switch (e2.getName()) {
+                    case "Infested Wolf":
+                        Card spider = new Card("Spider", 1, 1, 1, 1, "N/A");
+                        this.fieldCards[0] = spider;
+                        this.fieldCards[1] = spider;
+
+                    case "Rat Pack":
+                        int counter = e2.attack;
+                        Card rat = new Card("Rat", 1, 1, 1, 1, "N/A");
+                        for (int i = 0; i < 7; i++) {
+                            if (counter == 0) {
+                                break;
+                            } else if (!this.fieldCards[i].name.equals("")) {
+                                this.fieldCards[i] = rat;
+                                this.fieldCards[i] = rat;
+                                counter -= 1;
+                            }
+                        }
+                }
+            }
+        } else {
+            e1.setHp(e1.hp - e2.getAttack());
+            e2.setHp(e2.getHp() - e1.getAttack());
+            System.out.println("You attacked this card, " + e1.name + "'s hp is " + e1.hp + ", " + e2.name + "'s hp is " + e2.hp);
+            if (e2.condition.equals("Deathrattle")) {
+                switch (e2.name) {
+                    case "Infested Wolf":
+                        Card spider = new Card("Spider", 1, 1, 1, 1, "N/A");
+                        this.fieldCards[0] = spider;
+                        this.fieldCards[1] = spider;
+
+                    case "Rat Pack":
+                        int counter = e2.attack;
+                        Card rat = new Card("Rat", 1, 1, 1, 1, "N/A");
+                        for (int i = 0; i < 7; i++) {
+                            if (counter == 0) {
+                                break;
+                            } else if (!this.fieldCards[i].name.equals("")) {
+                                this.fieldCards[i] = rat;
+                                this.fieldCards[i] = rat;
+                                counter -= 1;
+                            }
+                        }
+                }
+            }
+            if (e1.condition.equals("Deathrattle")) {
+                switch (e1.name) {
+                    case "Infested Wolf":
+                        Card spider = new Card("Spider", 1, 1, 1, 1, "N/A");
+                        this.fieldCards[0] = spider;
+                        this.fieldCards[1] = spider;
+
+                    case "Rat Pack":
+                        int counter = e2.attack;
+                        Card rat = new Card("Rat", 1, 1, 1, 1, "N/A");
+                        for (int i = 0; i < 7; i++) {
+                            if (counter == 0) {
+                                break;
+                            } else if (!this.fieldCards[i].name.equals("")) {
+                                this.fieldCards[i] = rat;
+                                this.fieldCards[i] = rat;
+                                counter -= 1;
+                            }
+                        }
+                }
+            }
+        }
     }
 
 }

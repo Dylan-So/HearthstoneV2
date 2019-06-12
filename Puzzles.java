@@ -71,7 +71,42 @@ abstract public class Puzzles {
             }
         }
     }
+    
+     public void sortHand(){//sort hand in order of mana - least to greatest
+            for(int i = 0; i < 10; i++){
+                int min = i;
+                boolean check = true;//checks for the next min card that isnt empty
+                    if(!this.hand[i].name.equals("")){
+                        check = false;
+                        min = i;
+                    }
+                for(int j = min + 1; j < 10; j++){//checks thru the array for loswest mana card
+                    if(this.hand[j].name.equals("")){
+                        j++;
+                    }else if(this.hand[j].cost < this.hand[min].cost){
+                        min = j;
+                    }
+                }
 
+                if(!this.hand[i].name.equals("") && !this.hand[min].name.equals("")){//if both indexes arent empty switch cards
+                    int tempCost = this.hand[min].cost;
+                    this.hand[min].cost = this.hand[i].cost;
+                    this.hand[i].cost = tempCost;
+                    int tempAtk = this.hand[min].attack;
+                    int tempHp = this.hand[min].hp;
+                    this.hand[min].attack = this.hand[i].attack;
+                    this.hand[i].attack = tempAtk;
+                    this.hand[min].hp = this.hand[i].hp;
+                    this.hand[i].hp = tempHp;
+                    String tempCondition = this.hand[min].condition;
+                    String tempName = this.hand[min].name;
+                    this.hand[min].name = this.hand[i].name;
+                    this.hand[i].name = tempName;
+                    this.hand[min].condition = this.hand[i].condition;
+                    this.hand[i].condition = tempCondition;
+                }
+            }
+         
     public void printGame() {
         String line = "_____________________________________________________________________________________________________";
         String line2 = "><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><";

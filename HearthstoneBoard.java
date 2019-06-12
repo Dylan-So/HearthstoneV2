@@ -163,7 +163,7 @@ public class HearthstoneBoard {
 
         for (int i = 0; i < 7; i++) {//prints each avaliable minion that can attack
             if (!this.fieldCards[i].name.equals("")) {
-                if (!this.fieldCards[i].firstTurn) {
+                if (!this.fieldCards[i].isFirstTurn()) {
                     System.out.println("[" + i + "] - " + this.fieldCards[i].name);
                 }
             }

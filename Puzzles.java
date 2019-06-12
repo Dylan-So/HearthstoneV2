@@ -71,42 +71,43 @@ abstract public class Puzzles {
             }
         }
     }
-    
-     public void sortHand(){//sort hand in order of mana - least to greatest
-            for(int i = 0; i < 10; i++){
-                int min = i;
-                boolean check = true;//checks for the next min card that isnt empty
-                    if(!this.hand[i].name.equals("")){
-                        check = false;
-                        min = i;
-                    }
-                for(int j = min + 1; j < 10; j++){//checks thru the array for loswest mana card
-                    if(this.hand[j].name.equals("")){
-                        j++;
-                    }else if(this.hand[j].cost < this.hand[min].cost){
-                        min = j;
-                    }
-                }
 
-                if(!this.hand[i].name.equals("") && !this.hand[min].name.equals("")){//if both indexes arent empty switch cards
-                    int tempCost = this.hand[min].cost;
-                    this.hand[min].cost = this.hand[i].cost;
-                    this.hand[i].cost = tempCost;
-                    int tempAtk = this.hand[min].attack;
-                    int tempHp = this.hand[min].hp;
-                    this.hand[min].attack = this.hand[i].attack;
-                    this.hand[i].attack = tempAtk;
-                    this.hand[min].hp = this.hand[i].hp;
-                    this.hand[i].hp = tempHp;
-                    String tempCondition = this.hand[min].condition;
-                    String tempName = this.hand[min].name;
-                    this.hand[min].name = this.hand[i].name;
-                    this.hand[i].name = tempName;
-                    this.hand[min].condition = this.hand[i].condition;
-                    this.hand[i].condition = tempCondition;
+    public void sortHand() {//sort hand in order of mana - least to greatest
+        for (int i = 0; i < 10; i++) {
+            int min = i;
+            boolean check = true;//checks for the next min card that isnt empty
+            if (!this.hand[i].name.equals("")) {
+                check = false;
+                min = i;
+            }
+            for (int j = min + 1; j < 10; j++) {//checks thru the array for loswest mana card
+                if (this.hand[j].name.equals("")) {
+                    j++;
+                } else if (this.hand[j].cost < this.hand[min].cost) {
+                    min = j;
                 }
             }
-     }
+
+            if (!this.hand[i].name.equals("") && !this.hand[min].name.equals("")) {//if both indexes arent empty switch cards
+                int tempCost = this.hand[min].cost;
+                this.hand[min].cost = this.hand[i].cost;
+                this.hand[i].cost = tempCost;
+                int tempAtk = this.hand[min].attack;
+                int tempHp = this.hand[min].hp;
+                this.hand[min].attack = this.hand[i].attack;
+                this.hand[i].attack = tempAtk;
+                this.hand[min].hp = this.hand[i].hp;
+                this.hand[i].hp = tempHp;
+                String tempCondition = this.hand[min].condition;
+                String tempName = this.hand[min].name;
+                this.hand[min].name = this.hand[i].name;
+                this.hand[i].name = tempName;
+                this.hand[min].condition = this.hand[i].condition;
+                this.hand[i].condition = tempCondition;
+            }
+        }
+    }
+
     public void printGame() {
         String line = "_____________________________________________________________________________________________________";
         String line2 = "><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><";
@@ -257,8 +258,8 @@ abstract public class Puzzles {
     }
 
     public void heroPowerAction() {
-       Scanner sc = new Scanner(System.in);
-        if(this.currentMana >= this.allyHero.cost){
+        Scanner sc = new Scanner(System.in);
+        if (this.currentMana >= this.allyHero.cost) {
             switch (this.allyHero.name) {
                 case "Rogue":
                     this.allyHero.attack = 1;
@@ -266,19 +267,19 @@ abstract public class Puzzles {
                     break;
                 case "Priest":
                     for (int i = 0; i < 7; i++) {//prints each avaliable minion that can attack
-                    if (!this.fieldCards[i].name.equals("")) {
-                        System.out.println("[" + i + "] - " + this.fieldCards[i].name);
-                    }
-                    System.out.println("Select a card to heal: ");
-                    this.currentMana -= 2;
-                    this.fieldCards[sc.nextInt()].setHp(this.fieldCards[sc.nextInt()].getHp() + 2);
+                        if (!this.fieldCards[i].name.equals("")) {
+                            System.out.println("[" + i + "] - " + this.fieldCards[i].name);
+                        }
+                        System.out.println("Select a card to heal: ");
+                        this.currentMana -= 2;
+                        this.fieldCards[sc.nextInt()].setHp(this.fieldCards[sc.nextInt()].getHp() + 2);
                     }
                     break;
                 case "Warrior":
                     this.currentMana -= 2;
                     this.allyHero.armor += 2;
             }
-        }else{
+        } else {
             System.out.println("You don't have enough mana to perform this action (Press any button to continue)");
             sc.next();
         }
@@ -308,7 +309,7 @@ abstract public class Puzzles {
         if (this.enemyHero.hp != 0) {//for certain types of puzzles
             emptyEnemyBoard = false;
         }
-        
+
         if (emptyAllyBoard && emptyEnemyBoard) {
             System.out.println("You can't attack without any cards on the field (Press any button to continue)");
             scInt.next();
@@ -319,13 +320,13 @@ abstract public class Puzzles {
             }
             for (int i = 0; i < 7; i++) {//prints each avaliable minion that can attack
                 if (!this.fieldCards[i].name.equals("")) {
-                    if (!this.fieldCards[i].firstTurn) {
+                    if (!this.fieldCards[i].isFirstTurn()) {
                         System.out.println("[" + i + "] - " + this.fieldCards[i].name);
                         check = true;
                     }
                 }
             }
-            if(this.enemyHero.hp > 0){
+            if (this.enemyHero.hp > 0) {
                 check = true;
             }
 
@@ -335,7 +336,7 @@ abstract public class Puzzles {
                 System.out.println("");
 
                 if (this.enemyHero.hp > 0) {
-                    System.out.println("[ -1 ] - Enemy Hero");
+                    System.out.println("[-1] - Enemy Hero");
                 }
                 for (int i = 0; i < 7; i++) {//prints each avaliable enemy minion
                     if (!this.fieldCards[i].name.equals("")) {
@@ -351,7 +352,6 @@ abstract public class Puzzles {
                 Card tempHero = new Card();
                 Card tempEnemy = new Card();
                 if (choice1 == -1) {
-                    System.out.println((this.allyHero.hp + this.allyHero.armor) + "asdasdasdasd");
                     tempHero = new Card("", this.allyHero.hp + this.allyHero.armor, this.allyHero.hp + this.allyHero.armor, this.allyHero.attack, 0, "");
                 }
                 if (choice2 == -1) {
@@ -360,21 +360,19 @@ abstract public class Puzzles {
 
                 //attacking
                 if (choice1 != -1 && choice2 != -1) {//attacks a minion w/ a minion
-                    attack(this.fieldCards[choice1 - 1], this.enemyFieldCards[choice2]);
+                    attack(this.fieldCards[choice1], this.enemyFieldCards[choice2]);
                 } else if (choice1 == -1 && choice2 != -1) {//attacks a minion w/ a hero
                     attack(tempHero, this.enemyFieldCards[choice2]);
                     this.allyHero.attack = 0;
                     this.allyHero.hp -= Math.abs(this.allyHero.hp - tempHero.hp);
                 } else if (choice1 == -1 && choice2 == -1) {//attacks a hero w/ a hero
                     attack(tempHero, tempEnemy);
+                    this.enemyHero.hp -= this.allyHero.attack;
                     this.allyHero.attack = 0;
-                    this.allyHero.hp -= Math.abs(this.allyHero.hp - tempHero.hp);
-                    this.enemyHero.hp -= Math.abs(this.enemyHero.hp - tempEnemy.hp);
                 } else {//attacks a hero w/ a minion
-                    attack(this.fieldCards[choice1 - 1], tempEnemy);
-                    this.enemyHero.hp -= Math.abs(this.enemyHero.hp - tempEnemy.hp);
+                    attack(this.fieldCards[choice1], tempEnemy);
+                    this.enemyHero.hp -= this.fieldCards[choice1].attack;
                 }
-                
 
             } else {//
                 System.out.println("There are no enemy minions to attack (Press any button to continue)");
@@ -440,8 +438,11 @@ abstract public class Puzzles {
                 //////////////////place down minion method
             }
             if (this.hand[choice1].condition.equals("Rush") || this.hand[choice1].condition.equals("Charge")) {
-                this.hand[choice1].firstTurn = false;
+                this.hand[choice1].setFirstTurn(false);
             }
+
+            this.cardsPlayed++;
+
         } else {//if th card is a spell card
             switch (this.hand[choice1].getName()) {
                 case "Holy Nova":
@@ -451,8 +452,8 @@ abstract public class Puzzles {
                             this.enemyHero.hp -= 2;
                         }
                         if (!this.fieldCards[i].name.equals("")) {
-                            if (this.fieldCards[i].hp + 2 > this.fieldCards[i].maxHp) {
-                                this.fieldCards[i].hp = this.fieldCards[i].maxHp;
+                            if (this.fieldCards[i].hp + 2 > this.fieldCards[i].maxHP) {
+                                this.fieldCards[i].hp = this.fieldCards[i].maxHP;
                             } else {
                                 this.fieldCards[i].hp += 2;
                             }
@@ -484,6 +485,35 @@ abstract public class Puzzles {
                     this.currentMana += 1;
                     break;
 
+                case "Deadly Poison":
+                    this.allyHero.attack += 2;
+                    break;
+
+                case "Cold Blood":
+                    int dmg = 0;
+                    if (this.cardsPlayed == 0) {
+                        dmg = 2;
+                    } else {
+                        dmg = 4;
+                    }
+
+                    System.out.println("Choose a target:");
+                    if (this.enemyHero.hp > 0) {
+                        System.out.println("[-1] - Enemy Hero");
+                    }
+                    for (int i = 0; i < 7; i++) {//prints each avaliable enemy minion
+                        if (!this.fieldCards[i].name.equals("")) {
+                            System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
+                        }
+                    }
+
+                    int select = scInt.nextInt();
+                    if (select == -1) {
+                        this.enemyHero.hp -= dmg;
+                    } else {
+                        this.enemyFieldCards[select].hp -= dmg;
+                    }
+
                 default:
                     break;
             }
@@ -492,12 +522,13 @@ abstract public class Puzzles {
 
         this.currentMana -= this.hand[choice1].cost;//subtracts the mana
         this.hand[choice1] = new Card();//empties the hand
+        this.cardsPlayed++;
         System.out.println("");
 
     }
 
     public void attack(Card e1, Card e2) {
-        if ((e2.hp -= e1.attack) <= 0 && (e1.hp -= e1.attack) <= 0) {
+        if ((e2.hp -= e1.attack) <= 0 && (e1.hp -= e2.attack) <= 0) {
             System.out.println("You attacked this card and both of you died.");
             e2.setAttack(0);
             e2.setHp(0);
@@ -576,6 +607,8 @@ abstract public class Puzzles {
         } else {
             e1.setHp(e1.hp - e2.getAttack());
             e2.setHp(e2.getHp() - e1.getAttack());
+            e2.setFirstTurn(true);
+            e1.setFirstTurn(true);
             System.out.println("You attacked this card, " + e1.name + "'s hp is " + e1.hp + ", " + e2.name + "'s hp is " + e2.hp);
             if (e2.condition.equals("Deathrattle")) {
                 switch (e2.name) {

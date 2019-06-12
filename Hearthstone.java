@@ -1,16 +1,21 @@
 package hearthstone;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Hearthstone{
-    static BoardClear bc1;
-    static BoardClear bc2;
-    static BoardClear bc3;
+    static BoardClear bc1, bc2, bc3;
+    static Mirror m1, m2, m3;
+    static Survival s1, s2, s3;
     public static void main(String[] args) {
-        BoardClear lvl1 = new BoardClear();
         Scanner sc = new Scanner(System.in);
-        GameDeck deck = new GameDeck("C:\\Users\\Steve Nhan\\Documents\\NetBeansProjects\\Hearthstone\\src\\hearthstone\\boardClearCards.txt");
+        GameDeck deck1 = new GameDeck("C:\\Users\\324616879\\Desktop\\cards.txt");
+        Deck deck = new Deck("C:\\Users\\Dylan\\Desktop\\cards1.txt");
+        Card[] allCards = new Card[32];
+        for(int i = 0; i < 32; i++){
+            allCards[i] = new Card();
+        }
         boolean win = false;
         int optionAns = 0;
         System.out.println("-------------Welcome to the Hearthstone Puzzle Game-------------");
@@ -36,32 +41,36 @@ public class Hearthstone{
                     System.out.println("4. Mirror");
                     int puzzleAns = sc.nextInt();
                     if(puzzleAns == 1){
-                        //GameDeck playerDeck = new GameDeck("C:\\Users\\324616879\\Desktop\\boardClearCards.txt");
+                        GameDeck playerDeck = new GameDeck("C:\\Users\\324616879\\Desktop\\boardClearCards.txt");
                         createPuzzle("Board Clear");
-//                        while(!bc1.checkWinConditions()){
-//                            bc1.checkDeaths(0);
-//                            bc1.printGame();
-//                            playerAns = sc.next().charAt(0);
-//                            if(playerAns == 'A'){
-//                                bc1.attackAction();
-//                                bc1.checkDeaths(0);
-//                            }else if(playerAns == 'P'){
-//                                bc1.cardAction();
-//                                bc1.checkDeaths(0);
-//                            }else if(playerAns == 'R'){
-//                                createPuzzle("Board Clear");
-//                            }else{
-//                                System.out.println("....Leaving the game!");
-//                                System.out.println("");
-//                            }
-//                            bc1.checkDeaths(0);
-//                        }
-//                        System.out.println("You completed Level 1!");
-//                        System.out.println("Would you like to move on to Level 2? (Enter N to quit)");
-//                        if(sc.next().charAt(0) == 'N'){
-//                            break;
-//                        }
-                        while(!bc2.checkWin(0)){
+                        while(!bc1.checkWinConditions()){
+                            bc1.checkDeaths(0);
+                            bc1.printGame();
+                            playerAns = sc.next().charAt(0);
+                            if(playerAns == 'A'){
+                                bc1.attackAction();
+                                bc1.checkDeaths(0);
+                            }else if(playerAns == 'P'){
+                                bc1.cardAction();
+                                bc1.checkDeaths(0);
+                            }else if(playerAns == 'R'){
+                                createPuzzle("Board Clear");
+                            }else if(playerAns == 'H'){
+                                bc1.heroPowerAction();
+                            }else{
+                                System.out.println("....Leaving the game!");
+                                System.out.println("");
+                                playerAns = 0;
+                                break;
+                            }
+                            bc1.checkDeaths(0);
+                        }
+                        System.out.println("You completed Level 1!");
+                        System.out.println("Would you like to move on to Level 2? (Enter N to quit)");
+                        if(sc.next().charAt(0) == 'N'){
+                            break;
+                        }
+                        while(!bc2.checkWinConditions()){
                             bc2.checkDeaths(0);
                             bc2.printGame();
                             playerAns = sc.next().charAt(0);
@@ -73,13 +82,21 @@ public class Hearthstone{
                                 bc2.checkDeaths(0);
                             }else if(playerAns == 'R'){
                                 createPuzzle("Board Clear");
+                            }else if(playerAns == 'H'){
+                                bc2.heroPowerAction();
                             }else{
                                 System.out.println("....Leaving the game!");
                                 System.out.println("");
+                                playerAns = 0;
+                                break;
                             }
                             bc2.checkDeaths(0);
                         }
-                        System.out.println("You win");
+                        System.out.println("You completed Level 2!");
+                        System.out.println("Would you like to move on to Level 3? (Enter N to quit)");
+                        if(sc.next().charAt(0) == 'N'){
+                            break;
+                        }
                     }else if(puzzleAns == 2){
                         Puzzles[] lethalLvls = new Lethal[3];
                         for(int i = 0; i < 3; i++){
@@ -92,13 +109,38 @@ public class Hearthstone{
                             survivalLvls[i] = new Survival();
                         }
                     }else{
-                        Puzzles[] mirrorLvls = new Mirror[3];
-                        for(int i = 0; i < 3; i++){
-                            mirrorLvls[i] = new Mirror();
+                        createPuzzle("Mirror");
+                        while(!m1.checkWin()){
+                            m1.checkDeaths(0);
+                            m1.printGame();
+                            playerAns = sc.next().charAt(0);
+                            if(playerAns == 'A'){
+                                m1.attackAction();
+                                m1.checkDeaths(0);
+                            }else if(playerAns == 'P'){
+                                m1.cardAction();
+                                m1.checkDeaths(0);
+                            }else if(playerAns == 'R'){
+                                createPuzzle("Mirror");
+                            }else if(playerAns == 'H'){
+                                m1.heroPowerAction();
+                            }else{
+                                System.out.println("....Leaving the game!");
+                                System.out.println("");
+                                playerAns = 0;
+                                break;
+                            }
+                            m1.checkDeaths(0);
+                        }
+                        System.out.println("You completed Level 1!");
+                        System.out.println("Would you like to move on to Level 2? (Enter N to quit)");
+                        if(sc.next().charAt(0) == 'N'){
+                            break;
                         }
                     }
                 }else if(optionAns == 2){
-
+                    search(deck.card);
+                    cardStats(deck.card[1]);
                 }else{
                     break;
                 }
@@ -117,7 +159,7 @@ public class Hearthstone{
 
         public static void createPuzzle(String puzzleType){
             if(puzzleType.equals("Board Clear")){
-                GameDeck playerDeck = new GameDeck("C:\\Users\\Steve Nhan\\Documents\\NetBeansProjects\\Hearthstone\\src\\hearthstone\\boardClearCards.txt");
+                GameDeck playerDeck = new GameDeck("C:\\Users\\Dylan\\Desktop\\boardClearCards.txt");
                 ArrayList<Card> deck = new ArrayList<>();
                 ArrayList<Card> enemyDeck = new ArrayList<>();
                 Card[] eField = new Card[7];
@@ -130,15 +172,14 @@ public class Hearthstone{
                 eField[1] = playerDeck.getCard(1);
                 eField[0].firstTurn = false;
                 eField[1].firstTurn = false;
-                Puzzles[] boardClearLvls = new BoardClear[3];
                 Card[] playerHand1 = new Card[10];
                 for(int i = 0; i < 10; i++){
                     playerHand1[i] = new Card();
                 }
                 playerHand1[0] = playerDeck.getCard(2);
                 playerHand1[1] = playerDeck.getCard(3);
-                Hero playerHero = new Hero("Warrior", 0, 0, 0, 30, 2);
-                Hero enemyHero = new Hero("Dexter the Dendrologist", 0, 0, 0, 0, 0);
+                Hero playerHero = new Hero("Warrior", 0, 0, 30, 2);
+                Hero enemyHero = new Hero("Dexter the Dendrologist", 0, 0, 0, 0);
                 bc1 = new BoardClear(deck, enemyDeck, playerHand1, null, fField, eField, 0, 4, 4, playerHero, enemyHero);
                 Card[] playerHand2 = new Card[10];
                 for(int i = 0; i < 10; i++){
@@ -150,14 +191,92 @@ public class Hearthstone{
                     eField2[i] = new Card();
                     fField2[i] = new Card();
                 }
-                Hero playerHero2 = new Hero("Priest", 0,0, 0, 30, 2);
+                Hero playerHero2 = new Hero("Priest", 0, 0, 30, 2);
                 playerHand2[0] = playerDeck.getCard(4);
                 playerHand2[1] = playerDeck.getCard(6);
                 playerHand2[2] = playerDeck.getCard(7);
                 eField2[0] = playerDeck.getCard(5);
                 eField2[1] = new Card("Rat Pack", 2, 2, 2, 3, "Deathrattle");
-                playerHero2 = new Hero("Priest", 0, 0,0, 30, 2);
+                playerHero2 = new Hero("Priest", 0, 0, 30, 2);
                 bc2 = new BoardClear(deck, enemyDeck, playerHand2, null, fField2, eField2, 0, 8, 8, playerHero2, enemyHero);
+                Card[] playerHand3 = new Card[10];
+                for(int i = 0; i < 10; i++){
+                    playerHand3[i] = new Card();
+                }
+                Card[] eField3 = new Card[7];
+                Card[] fField3 = new Card[7];
+                for(int i = 0; i < 7; i++){
+                    eField3[i] = new Card();
+                    fField3[i] = new Card();
+                }
+                Hero playerHero3 = new Hero("Priest", 0, 0, 30, 2);
+                playerHand3[0] = playerDeck.getCard(8);
+                playerHand3[1] = playerDeck.getCard(8);
+                playerHand3[2] = playerDeck.getCard(10);
+                eField3[0] = new Card("Swamp King Dred", 9, 9, 9, 7, "Special3");
+                fField3[0] = new Card("Gilded Gargoyle", 2, 1, 1, 3, "Deathrattle");
+                fField3[1] = new Card("Gilded Gargoyle", 2, 1, 1, 3, "Deathrattle");
+                bc3 = new BoardClear(deck, enemyDeck, playerHand3, null, fField3, eField3, 0, 2, 2, playerHero3, enemyHero);
+            }else if(puzzleType.equals("Mirror")){
+                GameDeck playerDeck = new GameDeck("C:\\Users\\Dylan\\Desktop\\mirrorCards.txt");
+                ArrayList<Card> deck = new ArrayList<>();
+                ArrayList<Card> enemyDeck = new ArrayList<>();
+                Card[] eField = new Card[7];
+                Card[] fField = new Card[7];
+                for(int i = 0; i < 7; i++){
+                    eField[i] = new Card();
+                    fField[i] = new Card();
+                }
+                eField[0] = playerDeck.getCard(0);
+                eField[1] = playerDeck.getCard(1);
+                eField[0].firstTurn = false;
+                eField[1].firstTurn = false;
+                Card[] playerHand1 = new Card[10];
+                for(int i = 0; i < 10; i++){
+                    playerHand1[i] = new Card();
+                }
+                playerHand1[0] = playerDeck.getCard(0);
+                playerHand1[1] = playerDeck.getCard(1);
+                Hero playerHero = new Hero("Priest", 0, 0, 30, 2);
+                Hero enemyHero = new Hero("Dexter the Dendrologist", 0, 0, 30, 0);
+                m1 = new Mirror(deck, enemyDeck, playerHand1, null, fField, eField, 0, 4, 4, playerHero, enemyHero);
+            }else if(puzzleType.equals("Survival")){
+                GameDeck playerDeck = new GameDeck("C:\\Users\\Dylan\\Desktop\\mirrorCards.txt");
+                ArrayList<Card> deck = new ArrayList<>();
+                ArrayList<Card> enemyDeck = new ArrayList<>();
+                Card[] eField = new Card[7];
+                Card[] fField = new Card[7];
+                for(int i = 0; i < 7; i++){
+                    eField[i] = new Card();
+                    fField[i] = new Card();
+                }
+                eField[0] = playerDeck.getCard(0);
+                eField[1] = playerDeck.getCard(1);
+                eField[0].firstTurn = false;
+                eField[1].firstTurn = false;
+                Card[] playerHand1 = new Card[10];
+                for(int i = 0; i < 10; i++){
+                    playerHand1[i] = new Card();
+                }
+                playerHand1[0] = playerDeck.getCard(0);
+                playerHand1[1] = playerDeck.getCard(1);
+                Hero playerHero = new Hero("Priest", 0, 0, 30, 2);
+                Hero enemyHero = new Hero("Boomnician Breena", 0, 0, 0, 0);
+                s1 = new Survival(deck, enemyDeck, playerHand1, null, fField, eField, 0, 4, 4, playerHero, enemyHero);
             }
+        }
+        public static void search(Card[] a1){
+            for (int i = 1; i < 32; i++) { 
+            int key = a1[i].attack; 
+            int j = i - 1;
+            while (j >= 0 && a1[j].attack > key) { 
+                    a1[j + 1].setAttack((a1[j].getAttack())); 
+                    j = j - 1; 
+                } 
+                a1[j + 1].attack = key; 
+           }
+           for(int i = 0; i < 32; i++){
+               System.out.println(a1[i].getAttack());
+           } 
         }
     }

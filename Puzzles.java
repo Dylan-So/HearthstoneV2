@@ -196,7 +196,7 @@ abstract public class Puzzles {
 
         }
         System.out.println("\n" + line2);
-        
+
         sortHand();
         System.out.print("Your Hand     ||");//15 chars
         for (int i = 0; i < 10; i++) {//print ally card names
@@ -247,7 +247,7 @@ abstract public class Puzzles {
         }
         System.out.println("");
         System.out.println(line);
-        System.out.print("Your Hero:\t" + this.allyHero.hp + "HP\t Your Mana:\t" + this.currentMana);
+        System.out.print("Your Hero: " + this.allyHero.name + "\tYour HP: " + this.allyHero.hp + "HP\t" + "Your Armor: " + this.allyHero.armor + "\tYour Mana: " + this.currentMana);
         if (this.allyHero.attack > 0) {
             System.out.print("\t" + this.allyHero.attack + "ATK");
         }
@@ -257,11 +257,30 @@ abstract public class Puzzles {
     }
 
     public void heroPowerAction() {
-        switch (this.allyHero.name) {
-            case "Rogue":
-                this.allyHero.attack = 1;
-                this.currentMana -= 2;
-                break;
+       Scanner sc = new Scanner(System.in);
+        if(this.currentMana >= this.allyHero.cost){
+            switch (this.allyHero.name) {
+                case "Rogue":
+                    this.allyHero.attack = 1;
+                    this.currentMana -= 2;
+                    break;
+                case "Priest":
+                    for (int i = 0; i < 7; i++) {//prints each avaliable minion that can attack
+                    if (!this.fieldCards[i].name.equals("")) {
+                        System.out.println("[" + i + "] - " + this.fieldCards[i].name);
+                    }
+                    System.out.println("Select a card to heal: ");
+                    this.currentMana -= 2;
+                    this.fieldCards[sc.nextInt()].setHp(this.fieldCards[sc.nextInt()].getHp() + 2);
+                    }
+                    break;
+                case "Warrior":
+                    this.currentMana -= 2;
+                    this.allyHero.armor += 2;
+            }
+        }else{
+            System.out.println("You don't have enough mana to perform this action (Press any button to continue)");
+            sc.next();
         }
     }
 
@@ -432,8 +451,8 @@ abstract public class Puzzles {
                             this.enemyHero.hp -= 2;
                         }
                         if (!this.fieldCards[i].name.equals("")) {
-                            if (this.fieldCards[i].hp + 2 > this.fieldCards[i].maxHP) {
-                                this.fieldCards[i].hp = this.fieldCards[i].maxHP;
+                            if (this.fieldCards[i].hp + 2 > this.fieldCards[i].maxHp) {
+                                this.fieldCards[i].hp = this.fieldCards[i].maxHp;
                             } else {
                                 this.fieldCards[i].hp += 2;
                             }

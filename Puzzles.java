@@ -211,32 +211,57 @@ abstract public class Puzzles {
         }
         System.out.println("");
         System.out.println(line);
-        System.out.println("Your Hero:\t" + this.allyHero.hp + "HP\t Your Mana:\t" + this.currentMana);
-        System.out.print("Choose your action: \"A\" - Attack | \"P\" - Play Card | \"R\" - Restart | \"E\" - Exit :\t");
+        System.out.print("Your Hero:\t" + this.allyHero.hp + "HP\t Your Mana:\t" + this.currentMana);
+        if (this.allyHero.attack > 0) {
+            System.out.print("\t" + this.allyHero.attack + "ATK");
+        }
+        System.out.println("\n");
+        System.out.print("Choose your action: \"H\" - Hero Power | \"A\" - Attack | \"P\" - Play Card | \"R\" - Restart | \"E\" - Exit :\t");
 
+    }
+
+    public void heroPowerAction() {
+        switch (this.allyHero.name) {
+            case "Rogue":
+                this.allyHero.attack = 1;
+                this.currentMana -= 2;
+                break;
+        }
     }
 
     public void attackAction() {
         Scanner scInt = new Scanner(System.in);
-        boolean emptyBoard = true;
+        boolean emptyAllyBoard = true;
+        boolean emptyEnemyBoard = true;
+
         for (int i = 0; i < 7; i++) {
             if (!this.fieldCards[i].name.equals("")) {//checks if ally field is empty
-                emptyBoard = false;
+                emptyAllyBoard = false;
                 break;
             }
         }
+        if (this.allyHero.attack != 0) {//can attack with hero
+            emptyAllyBoard = false;
+        }
+
         for (int i = 0; i < 7; i++) {
             if (!this.enemyFieldCards[i].name.equals("")) {//checks if enemy field is empty
-                emptyBoard = false;
+                emptyEnemyBoard = false;
                 break;
             }
         }
-        if (emptyBoard) {
-            emptyBoard = false;
+        if (this.enemyHero.hp != 0) {//for certain types of puzzles
+            emptyEnemyBoard = false;
+        }
+        
+        if (emptyAllyBoard && emptyEnemyBoard) {
             System.out.println("You can't attack without any cards on the field (Press any button to continue)");
             scInt.next();
         } else {
             boolean check = false;
+            if (this.allyHero.attack > 0) {
+                System.out.println("[-1] - Hero");
+            }
             for (int i = 0; i < 7; i++) {//prints each avaliable minion that can attack
                 if (!this.fieldCards[i].name.equals("")) {
                     if (!this.fieldCards[i].firstTurn) {
@@ -245,12 +270,18 @@ abstract public class Puzzles {
                     }
                 }
             }
+            if(this.enemyHero.hp > 0){
+                check = true;
+            }
 
             if (check) {//can attack with a minion
                 System.out.println("Choose a minion to attack with");
                 int choice1 = scInt.nextInt();//selects the minion to attack with
                 System.out.println("");
 
+                if (this.enemyHero.hp > 0) {
+                    System.out.println("[ -1 ] - Enemy Hero");
+                }
                 for (int i = 0; i < 7; i++) {//prints each avaliable enemy minion
                     if (!this.fieldCards[i].name.equals("")) {
                         System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
@@ -261,7 +292,34 @@ abstract public class Puzzles {
                 int choice2 = scInt.nextInt();//selects the minion to be attacked
                 System.out.println("");
 
-                attack(this.fieldCards[choice1 - 1], this.enemyFieldCards[choice2]);//issue for dylan to deal with
+                //temporary cards for the heroes
+                Card tempHero = new Card();
+                Card tempEnemy = new Card();
+                if (choice1 == -1) {
+                    System.out.println((this.allyHero.hp + this.allyHero.armor) + "asdasdasdasd");
+                    tempHero = new Card("", this.allyHero.hp + this.allyHero.armor, this.allyHero.hp + this.allyHero.armor, this.allyHero.attack, 0, "");
+                }
+                if (choice2 == -1) {
+                    tempEnemy = new Card("", this.enemyHero.hp + this.enemyHero.armor, this.enemyHero.hp + this.enemyHero.armor, this.enemyHero.attack, 0, "");
+                }
+
+                //attacking
+                if (choice1 != -1 && choice2 != -1) {//attacks a minion w/ a minion
+                    attack(this.fieldCards[choice1 - 1], this.enemyFieldCards[choice2]);
+                } else if (choice1 == -1 && choice2 != -1) {//attacks a minion w/ a hero
+                    attack(tempHero, this.enemyFieldCards[choice2]);
+                    this.allyHero.attack = 0;
+                    this.allyHero.hp -= Math.abs(this.allyHero.hp - tempHero.hp);
+                } else if (choice1 == -1 && choice2 == -1) {//attacks a hero w/ a hero
+                    attack(tempHero, tempEnemy);
+                    this.allyHero.attack = 0;
+                    this.allyHero.hp -= Math.abs(this.allyHero.hp - tempHero.hp);
+                    this.enemyHero.hp -= Math.abs(this.enemyHero.hp - tempEnemy.hp);
+                } else {//attacks a hero w/ a minion
+                    attack(this.fieldCards[choice1 - 1], tempEnemy);
+                    this.enemyHero.hp -= Math.abs(this.enemyHero.hp - tempEnemy.hp);
+                }
+                
 
             } else {//
                 System.out.println("There are no enemy minions to attack (Press any button to continue)");

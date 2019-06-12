@@ -1,22 +1,26 @@
 package hearthstone;
 
-public class Hero extends Entity {
-
+public class Hero{
+    public String name;
+    public int attack;
+    public int hp;
+    public int cost;
     public int armor;
-
-    public Hero(String name, int atk, int arm, int hp, int max, int c) {
-        super(name, max, atk, hp, c);
+    public int maxHp;
+    
+    public Hero(String nm, int atk, int arm, int health, int c){
+        name = nm;
+        attack = atk;
+        hp = health;
         armor = arm;
+        maxHp = 30;
     }
-
-    public Hero() {
-        super("", 0, 0, 0, 0);
+    public Hero(){
+        name = "";
+        attack = 0;
+        hp = 0;
         armor = 0;
+        maxHp = 0;
     }
-
-    public void heroPower(Entity e1) {
-        if (e1.name.contains("mage")) {
-
-        }
-    }
+    
 }

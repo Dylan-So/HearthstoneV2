@@ -13,8 +13,9 @@ public class Lethal extends Puzzles {
     }
     
     public boolean checkWin(Hero e1){
-        if(!(this.numTurns > 1) && e1.hp <= 0){
+        if(e1.hp <= 0){
             return true;
+            
         }else{
             return false;
         }

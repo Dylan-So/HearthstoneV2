@@ -106,7 +106,7 @@ abstract public class Puzzles {
                     this.hand[i].condition = tempCondition;
                 }
             }
-         
+     }
     public void printGame() {
         String line = "_____________________________________________________________________________________________________";
         String line2 = "><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><";
@@ -196,7 +196,8 @@ abstract public class Puzzles {
 
         }
         System.out.println("\n" + line2);
-
+        
+        sortHand();
         System.out.print("Your Hand     ||");//15 chars
         for (int i = 0; i < 10; i++) {//print ally card names
             if (this.hand[i].name.equals("")) {//print empty card

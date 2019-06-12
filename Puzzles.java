@@ -158,7 +158,7 @@ abstract public class Puzzles {
             }
 
         }
-        System.out.println("\n" + line3);
+        System.out.println("\n" + line2);
 
         System.out.print("Your Hand     ||");//15 chars
         for (int i = 0; i < 10; i++) {//print ally card names
@@ -210,8 +210,7 @@ abstract public class Puzzles {
         System.out.println("");
         System.out.println(line);
         System.out.println("YOUR MANA: " + this.currentMana);
-        System.out.println("Choose your action: \"A\" - Attack | \"P\" - Play Card | \"R\" - Restart | \"E\" - Exit");
-        System.out.println(line);
+        System.out.print("Choose your action: \"A\" - Attack | \"P\" - Play Card | \"R\" - Restart | \"E\" - Exit :\t");
 
     }
 
@@ -258,7 +257,8 @@ abstract public class Puzzles {
 
     public void cardAction() {
         Scanner scInt = new Scanner(System.in);
-
+        
+        System.out.println("");
         for (int i = 0; i < 10; i++) {//prints each avaliable card that can be played
             if (!this.hand[i].name.equals("")) {
                 if (this.hand[i].cost <= this.currentMana) {
@@ -267,7 +267,7 @@ abstract public class Puzzles {
             }
         }
 
-        System.out.println("Choose the card to be played");
+        System.out.print("Choose the card to be played:");
         int choice1 = scInt.nextInt();//selects the card
         System.out.println("");
 
@@ -287,7 +287,7 @@ abstract public class Puzzles {
                             System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
                         }
                     }
-                    System.out.println("Choose the minion to attack");
+                    System.out.print("Choose the minion to attack:");
                     int attackChoice = scInt.nextInt();//selects the minion to be attacked
                     System.out.println("");
                     this.enemyFieldCards[attackChoice].hp -= 1;
@@ -295,16 +295,13 @@ abstract public class Puzzles {
             }
 
             if (check) {
-                System.out.println("Choose where to play the minion (1-7)");
+                System.out.print("Choose where to play the minion (1-7):");
                 int choice2 = scInt.nextInt();//selects the position to place the minion
                 while (!this.fieldCards[choice2 - 1].name.equals("")) {
                     System.out.println("There is already a card here, please choose a different position: ");
                     choice2 = scInt.nextInt();
                 }
                 this.fieldCards[choice2 - 1] = this.hand[choice1];
-                this.currentMana -= this.hand[choice1].cost;
-                this.hand[choice1] = new Card();
-                System.out.println("");
 
                 //////////////////place down minion method
             }
@@ -332,6 +329,7 @@ abstract public class Puzzles {
                     } else {
                         this.allyHero.hp += 2;
                     }
+                    break;
 
                 case "Spirit Lash":
                     int healCounter = 0;
@@ -346,11 +344,21 @@ abstract public class Puzzles {
                     } else {
                         this.allyHero.hp += healCounter;
                     }
+                    break;
 
                 case "The Coin":
                     this.currentMana += 1;
+                    break;
+                    
+                default:
+                    break;
             }
+            
         }
+        
+        this.currentMana -= this.hand[choice1].cost;//subtracts the mana
+                this.hand[choice1] = new Card();//empties the hand
+                System.out.println("");
 
     }
 

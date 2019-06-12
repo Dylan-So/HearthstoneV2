@@ -245,7 +245,7 @@ abstract public class Puzzles {
                     }
                 }
             }
-            
+
             if (check) {//can attack with a minion
                 System.out.println("Choose a minion to attack with");
                 int choice1 = scInt.nextInt();//selects the minion to attack with
@@ -281,8 +281,9 @@ abstract public class Puzzles {
                 }
             }
         }
+        System.out.println("");
 
-        System.out.print("Choose the card to be played:");
+        System.out.print("Choose the card to be played:\t");
         int choice1 = scInt.nextInt();//selects the card
         System.out.println("");
 
@@ -302,7 +303,12 @@ abstract public class Puzzles {
                             System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
                         }
                     }
-                    System.out.print("Choose the minion to attack:");
+                    System.out.println("Choose the minion to attack:");
+                    for (int i = 0; i < 7; i++) {//prints each avaliable minion to be attacked
+                        if (!this.enemyFieldCards[i].name.equals("")) {
+                            System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
+                        }
+                    }
                     int attackChoice = scInt.nextInt();//selects the minion to be attacked
                     System.out.println("");
                     this.enemyFieldCards[attackChoice].hp -= 1;

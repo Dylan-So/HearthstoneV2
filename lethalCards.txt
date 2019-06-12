@@ -8,7 +8,7 @@ Cold Blood
 0
 0
 2
-2
+1
 Spell,Combo
 Bluegill Warrior
 1
@@ -27,13 +27,13 @@ Ice Lance
 0
 0
 1
-Spell,Special
+Spell,Special#1
 Mana Wyrm
 3
 3
 1
 2
-+1 atk per spell
+Special#2
 Windfury
 0
 0

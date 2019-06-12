@@ -114,7 +114,13 @@ abstract public class Puzzles {
         String line3 = "****************************************************************************************************";
 
         System.out.println(line3);
-        System.out.println("Enemy Hero:\t" + this.enemyHero.hp + "HP");
+        System.out.print("Enemy Hero:\t" + this.enemyHero.hp + "HP");
+        String enemyCond[] = this.enemyHero.condition.split(",");
+        //for(int i = 0; i < enemyCond.length; i++){
+        //    System.out.println("\t" + enemyCond[i]);
+        //    
+        //}
+        System.out.println(this.enemyHero.condition);  
         System.out.println(line3);
         System.out.print("Enemy Minions ||");//15 chars
         for (int i = 0; i < 7; i++) {//print enemy card names
@@ -144,7 +150,7 @@ abstract public class Puzzles {
                 System.out.print("\t|");
             } else {//print enemy conditions
                 if (this.enemyFieldCards[i].condition.equals("N/A")) {
-                    System.out.print("\t  |");
+                    System.out.print("\t|");
                 } else {
                     String arrConditions[] = this.enemyFieldCards[i].condition.split(",");
                     for (int j = 0; j < arrConditions.length; j++) {//prints out every condition that the minion contains
@@ -331,7 +337,7 @@ abstract public class Puzzles {
             }
 
             if (check) {//can attack with a minion
-                System.out.println("Choose a minion to attack with");
+                System.out.println("Choose a minion to attack with\t");
                 int choice1 = scInt.nextInt();//selects the minion to attack with
                 System.out.println("");
 
@@ -339,7 +345,7 @@ abstract public class Puzzles {
                     System.out.println("[-1] - Enemy Hero");
                 }
                 for (int i = 0; i < 7; i++) {//prints each avaliable enemy minion
-                    if (!this.fieldCards[i].name.equals("")) {
+                    if (!this.enemyFieldCards[i].name.equals("")) {
                         System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
                     }
                 }
@@ -513,13 +519,67 @@ abstract public class Puzzles {
                     } else {
                         this.enemyFieldCards[select].hp -= dmg;
                     }
+                    break;
+                case "Frostbolt":
+                    System.out.println("Choose a target:");
+                    if (this.enemyHero.hp > 0) {
+                        System.out.println("[-1] - Enemy Hero");
+                    }
+                    for (int i = 0; i < 7; i++) {//prints each avaliable enemy minion
+                        if (!this.fieldCards[i].name.equals("")) {
+                            System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
+                        }
+                    }
 
+                    int select1 = scInt.nextInt();
+                    if (select1 == -1) {
+                        this.enemyHero.hp -= 3;
+                        this.enemyHero.condition = (this.enemyHero.condition + ",Freeze");
+                    } else {
+                        this.enemyFieldCards[select1].hp -= 3;
+                        this.enemyHero.condition = (this.enemyHero.condition + ",Freeze");
+                    }
+                    break;
+                    
+                case "Ice Lance":
+                    System.out.println("Choose a target:");
+                    if (this.enemyHero.hp > 0) {
+                        System.out.println("[-1] - Enemy Hero");
+                    }
+                    for (int i = 0; i < 7; i++) {//prints each avaliable enemy minion
+                        if (!this.fieldCards[i].name.equals("")) {
+                            System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
+                        }
+                    }
+
+                    int select2 = scInt.nextInt();
+                    if (select2 == -1) {
+                        if(this.enemyHero.condition.contains("Freeze")){
+                          this.enemyHero.hp -= 4;
+                        }else{
+                          this.enemyHero.condition = (this.enemyHero.condition + ",Freeze"); 
+                        }
+                    } else {
+                        if(this.enemyFieldCards[select2].condition.contains("Frost")){
+                          this.enemyHero.hp -= 4;
+                        }else{
+                          this.enemyFieldCards[select2].condition.concat("Freeze,");  
+                        }
+                    }
+                    break;
+                    
                 default:
                     break;
             }
 
         }
-
+        
+        for(int i = 0; i < 7; i++){//for field minions with speical#2
+            if(this.fieldCards[i].condition.contains("Special#2")){
+                this.fieldCards[i].attack ++;
+            }
+        }
+        
         this.currentMana -= this.hand[choice1].cost;//subtracts the mana
         this.hand[choice1] = new Card();//empties the hand
         this.cardsPlayed++;

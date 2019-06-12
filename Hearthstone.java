@@ -102,6 +102,7 @@ public class Hearthstone {
                         }
                     } else if (puzzleAns == 2) {
                         createPuzzle("Lethal");
+                        /*
                         while (!l1.checkWin(l1.enemyHero)) {
                             l1.checkDeaths(0);
                             l1.printGame();
@@ -126,6 +127,34 @@ public class Hearthstone {
                         }
                         System.out.println("You completed Level 1!");
                         System.out.println("Would you like to move on to Level 2? (Enter N to quit)");
+                        if (sc.next().charAt(0) == 'N') {
+                            break;
+                        }
+                        */
+                        while (!l2.checkWin(l2.enemyHero)) {
+                            l2.checkDeaths(0);
+                            l2.printGame();
+                            playerAns = sc.next().charAt(0);
+                            if (playerAns == 'A') {
+                                l2.attackAction();
+                                l2.checkDeaths(0);
+                            } else if (playerAns == 'P') {
+                                l2.cardAction();
+                                l2.checkDeaths(0);
+                            } else if (playerAns == 'R') {
+                                createPuzzle("Lethal");
+                            } else if (playerAns == 'H') {
+                                l2.heroPowerAction();
+                            } else {
+                                System.out.println("....Leaving the game!");
+                                System.out.println("");
+                                playerAns = 0;
+                                break;
+                            }
+                            l2.checkDeaths(0);
+                        }
+                        System.out.println("You completed Level 2!");
+                        System.out.println("Would you like to move on to Level 3? (Enter N to quit)");
                         if (sc.next().charAt(0) == 'N') {
                             break;
                         }
@@ -343,6 +372,32 @@ public class Hearthstone {
 
             //board
             l1 = new Lethal(deck, enemyDeck, playerHand1, null, fField, eField, 0, 4, 4, playerHero, enemyHero);
+
+            //field #2
+            Card[] eField2 = new Card[7];
+            Card[] fField2 = new Card[7];
+            for (int i = 0; i < 7; i++) {
+                eField2[i] = new Card();
+                fField2[i] = new Card();
+            }
+            fField2[0] = playerDeck.getCard(5);
+            fField2[0].setFirstTurn(false);
+
+            //hand #2
+            Card[] playerHand2 = new Card[10];
+            for (int i = 0; i < 10; i++) {
+                playerHand2[i] = new Card();
+            }
+            playerHand2[0] = playerDeck.getCard(3);
+            playerHand2[1] = playerDeck.getCard(4);
+            playerHand2[2] = playerDeck.getCard(4);
+
+            //hero #2
+            Hero playerHero2 = new Hero("Mage", 0, 0, 30, 2);
+            Hero enemyHero2 = new Hero("Dexter the Dendrologist", 0, 0, 10, 0);
+
+            //board #2
+            l2 = new Lethal(deck, enemyDeck, playerHand2, null, fField2, eField2, 0, 8, 8, playerHero2, enemyHero);
         }
     }
 

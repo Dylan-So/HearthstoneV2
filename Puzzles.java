@@ -78,6 +78,8 @@ abstract public class Puzzles {
         String line3 = "****************************************************************************************************";
 
         System.out.println(line3);
+        System.out.println("Enemy Hero:\t" + this.enemyHero.hp + "HP");
+        System.out.println(line3);
         System.out.print("Enemy Minions ||");//15 chars
         for (int i = 0; i < 7; i++) {//print enemy card names
             if (this.enemyFieldCards[i].name.equals("")) {//print empty card
@@ -209,7 +211,7 @@ abstract public class Puzzles {
         }
         System.out.println("");
         System.out.println(line);
-        System.out.println("YOUR MANA: " + this.currentMana);
+        System.out.println("Your Hero:\t" + this.allyHero.hp + "HP\t Your Mana:\t" + this.currentMana);
         System.out.print("Choose your action: \"A\" - Attack | \"P\" - Play Card | \"R\" - Restart | \"E\" - Exit :\t");
 
     }
@@ -218,7 +220,13 @@ abstract public class Puzzles {
         Scanner scInt = new Scanner(System.in);
         boolean emptyBoard = true;
         for (int i = 0; i < 7; i++) {
-            if (!this.fieldCards[i].name.equals("")) {
+            if (!this.fieldCards[i].name.equals("")) {//checks if ally field is empty
+                emptyBoard = false;
+                break;
+            }
+        }
+        for (int i = 0; i < 7; i++) {
+            if (!this.enemyFieldCards[i].name.equals("")) {//checks if enemy field is empty
                 emptyBoard = false;
                 break;
             }
@@ -228,36 +236,43 @@ abstract public class Puzzles {
             System.out.println("You can't attack without any cards on the field (Press any button to continue)");
             scInt.next();
         } else {
+            boolean check = false;
             for (int i = 0; i < 7; i++) {//prints each avaliable minion that can attack
                 if (!this.fieldCards[i].name.equals("")) {
                     if (!this.fieldCards[i].firstTurn) {
                         System.out.println("[" + i + "] - " + this.fieldCards[i].name);
+                        check = true;
                     }
                 }
             }
+            
+            if (check) {//can attack with a minion
+                System.out.println("Choose a minion to attack with");
+                int choice1 = scInt.nextInt();//selects the minion to attack with
+                System.out.println("");
 
-            System.out.println("Choose a minion to attack with");
-            int choice1 = scInt.nextInt();//selects the minion to attack with
-            System.out.println("");
-
-            for (int i = 0; i < 7; i++) {//prints each avaliable enemy minion
-                if (!this.fieldCards[i].name.equals("")) {
-                    System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
+                for (int i = 0; i < 7; i++) {//prints each avaliable enemy minion
+                    if (!this.fieldCards[i].name.equals("")) {
+                        System.out.println("[" + i + "] - " + this.enemyFieldCards[i].name);
+                    }
                 }
+
+                System.out.println("Choose the minion to attack");
+                int choice2 = scInt.nextInt();//selects the minion to be attacked
+                System.out.println("");
+
+                attack(this.fieldCards[choice1 - 1], this.enemyFieldCards[choice2]);//issue for dylan to deal with
+
+            } else {//
+                System.out.println("There are no enemy minions to attack (Press any button to continue)");
             }
-
-            System.out.println("Choose the minion to attack");
-            int choice2 = scInt.nextInt();//selects the minion to be attacked
-            System.out.println("");
-
-            attack(this.fieldCards[choice1 - 1], this.enemyFieldCards[choice2]);//issue for dylan to deal with
         }
 
     }
 
     public void cardAction() {
         Scanner scInt = new Scanner(System.in);
-        
+
         System.out.println("");
         for (int i = 0; i < 10; i++) {//prints each avaliable card that can be played
             if (!this.hand[i].name.equals("")) {
@@ -349,16 +364,16 @@ abstract public class Puzzles {
                 case "The Coin":
                     this.currentMana += 1;
                     break;
-                    
+
                 default:
                     break;
             }
-            
+
         }
-        
+
         this.currentMana -= this.hand[choice1].cost;//subtracts the mana
-                this.hand[choice1] = new Card();//empties the hand
-                System.out.println("");
+        this.hand[choice1] = new Card();//empties the hand
+        System.out.println("");
 
     }
 

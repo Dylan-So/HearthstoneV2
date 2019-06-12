@@ -38,20 +38,46 @@ public class Hearthstone{
                     if(puzzleAns == 1){
                         //GameDeck playerDeck = new GameDeck("C:\\Users\\324616879\\Desktop\\boardClearCards.txt");
                         createPuzzle("Board Clear");
-                        while(!bc1.checkWinConditions()){
-                            bc1.printGame();
+//                        while(!bc1.checkWinConditions()){
+//                            bc1.checkDeaths(0);
+//                            bc1.printGame();
+//                            playerAns = sc.next().charAt(0);
+//                            if(playerAns == 'A'){
+//                                bc1.attackAction();
+//                                bc1.checkDeaths(0);
+//                            }else if(playerAns == 'P'){
+//                                bc1.cardAction();
+//                                bc1.checkDeaths(0);
+//                            }else if(playerAns == 'R'){
+//                                createPuzzle("Board Clear");
+//                            }else{
+//                                System.out.println("....Leaving the game!");
+//                                System.out.println("");
+//                            }
+//                            bc1.checkDeaths(0);
+//                        }
+//                        System.out.println("You completed Level 1!");
+//                        System.out.println("Would you like to move on to Level 2? (Enter N to quit)");
+//                        if(sc.next().charAt(0) == 'N'){
+//                            break;
+//                        }
+                        while(!bc2.checkWinConditions()){
+                            bc2.checkDeaths(0);
+                            bc2.printGame();
                             playerAns = sc.next().charAt(0);
                             if(playerAns == 'A'){
-                                bc1.attackAction();
+                                bc2.attackAction();
+                                bc2.checkDeaths(0);
                             }else if(playerAns == 'P'){
-                                bc1.cardAction();
+                                bc2.cardAction();
+                                bc2.checkDeaths(0);
                             }else if(playerAns == 'R'){
                                 createPuzzle("Board Clear");
                             }else{
                                 System.out.println("....Leaving the game!");
                                 System.out.println("");
                             }
-                            bc1.checkDeaths(0);
+                            bc2.checkDeaths(0);
                         }
                     }else if(puzzleAns == 2){
                         Puzzles[] lethalLvls = new Lethal[3];
@@ -113,7 +139,24 @@ public class Hearthstone{
                 Hero playerHero = new Hero("Warrior", 0, 0, 30, 2);
                 Hero enemyHero = new Hero("Dexter the Dendrologist", 0, 0, 0, 0);
                 bc1 = new BoardClear(deck, enemyDeck, playerHand1, null, fField, eField, 0, 4, 4, playerHero, enemyHero);
-
+                Card[] playerHand2 = new Card[10];
+                for(int i = 0; i < 10; i++){
+                    playerHand2[i] = new Card();
+                }
+                Card[] eField2 = new Card[7];
+                Card[] fField2 = new Card[7];
+                for(int i = 0; i < 7; i++){
+                    eField2[i] = new Card();
+                    fField2[i] = new Card();
+                }
+                Hero playerHero2 = new Hero("Priest", 0, 0, 30, 2);
+                playerHand2[0] = playerDeck.getCard(4);
+                playerHand2[1] = playerDeck.getCard(6);
+                playerHand2[2] = playerDeck.getCard(7);
+                eField2[0] = playerDeck.getCard(5);
+                eField2[1] = new Card("Rat Pack", 2, 2, 2, 3, "Deathrattle");
+                playerHero2 = new Hero("Priest", 0, 0, 30, 2);
+                bc2 = new BoardClear(deck, enemyDeck, playerHand2, null, fField2, eField2, 0, 8, 8, playerHero2, enemyHero);
             }
         }
     }

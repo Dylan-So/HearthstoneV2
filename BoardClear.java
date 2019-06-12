@@ -12,10 +12,10 @@ public class BoardClear extends Puzzles {
         super(new ArrayList<>(), new ArrayList<>(), null, null, null, null, 0, 0, 0, null, null);
     }
 
-    public boolean checkWin(int index) {//checks all enemy minions have been removed
+    public boolean checkWin(int index) {//checks all minions have been removed
         boolean check = true;
-        if (index < 7) {
-            if (!this.enemyFieldCards[index].name.equals("")) {
+        if (index < 7 && check == true) {
+            if ( !this.enemyFieldCards[index].name.equals("") || !this.fieldCards[index].name.equals("")) {
                 check = false;
             } else {
                 checkWin(index + 1);

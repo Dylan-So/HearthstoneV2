@@ -10,7 +10,7 @@ public class Hearthstone{
     public static void main(String[] args) {
         BoardClear lvl1 = new BoardClear();
         Scanner sc = new Scanner(System.in);
-        GameDeck deck = new GameDeck("C:\\Users\\324616879\\Desktop\\cards.txt");
+        GameDeck deck = new GameDeck("C:\\Users\\Steve Nhan\\Documents\\NetBeansProjects\\Hearthstone\\src\\hearthstone\\boardClearCards.txt");
         boolean win = false;
         int optionAns = 0;
         System.out.println("-------------Welcome to the Hearthstone Puzzle Game-------------");
@@ -61,7 +61,7 @@ public class Hearthstone{
 //                        if(sc.next().charAt(0) == 'N'){
 //                            break;
 //                        }
-                        while(!bc2.checkWinConditions()){
+                        while(!bc2.checkWin(0)){
                             bc2.checkDeaths(0);
                             bc2.printGame();
                             playerAns = sc.next().charAt(0);
@@ -79,6 +79,7 @@ public class Hearthstone{
                             }
                             bc2.checkDeaths(0);
                         }
+                        System.out.println("You win");
                     }else if(puzzleAns == 2){
                         Puzzles[] lethalLvls = new Lethal[3];
                         for(int i = 0; i < 3; i++){
@@ -116,7 +117,7 @@ public class Hearthstone{
 
         public static void createPuzzle(String puzzleType){
             if(puzzleType.equals("Board Clear")){
-                GameDeck playerDeck = new GameDeck("C:\\Users\\Dylan\\Desktop\\boardClearCards.txt");
+                GameDeck playerDeck = new GameDeck("C:\\Users\\Steve Nhan\\Documents\\NetBeansProjects\\Hearthstone\\src\\hearthstone\\boardClearCards.txt");
                 ArrayList<Card> deck = new ArrayList<>();
                 ArrayList<Card> enemyDeck = new ArrayList<>();
                 Card[] eField = new Card[7];
@@ -136,8 +137,8 @@ public class Hearthstone{
                 }
                 playerHand1[0] = playerDeck.getCard(2);
                 playerHand1[1] = playerDeck.getCard(3);
-                Hero playerHero = new Hero("Warrior", 0, 0, 30, 2);
-                Hero enemyHero = new Hero("Dexter the Dendrologist", 0, 0, 0, 0);
+                Hero playerHero = new Hero("Warrior", 0, 0, 0, 30, 2);
+                Hero enemyHero = new Hero("Dexter the Dendrologist", 0, 0, 0, 0, 0);
                 bc1 = new BoardClear(deck, enemyDeck, playerHand1, null, fField, eField, 0, 4, 4, playerHero, enemyHero);
                 Card[] playerHand2 = new Card[10];
                 for(int i = 0; i < 10; i++){
@@ -149,13 +150,13 @@ public class Hearthstone{
                     eField2[i] = new Card();
                     fField2[i] = new Card();
                 }
-                Hero playerHero2 = new Hero("Priest", 0, 0, 30, 2);
+                Hero playerHero2 = new Hero("Priest", 0,0, 0, 30, 2);
                 playerHand2[0] = playerDeck.getCard(4);
                 playerHand2[1] = playerDeck.getCard(6);
                 playerHand2[2] = playerDeck.getCard(7);
                 eField2[0] = playerDeck.getCard(5);
                 eField2[1] = new Card("Rat Pack", 2, 2, 2, 3, "Deathrattle");
-                playerHero2 = new Hero("Priest", 0, 0, 30, 2);
+                playerHero2 = new Hero("Priest", 0, 0,0, 30, 2);
                 bc2 = new BoardClear(deck, enemyDeck, playerHand2, null, fField2, eField2, 0, 8, 8, playerHero2, enemyHero);
             }
         }

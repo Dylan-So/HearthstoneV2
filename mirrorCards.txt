@@ -1,273 +1,30 @@
-Bloodfen Raptor
-2
-3
-3
-2
-N/A
 Wisp
 1
 1
 1
 0
 N/A
-Rabid Worgen
-3
-3
-3
-3
-Rush
-Stonetusk Boar
-1
-1
-1
-1
-Charge
-Elven Archer
-1
-1
-1
-1
-Battlecry
-Infested Wolf
-3
-3
-3
-4
-Deathrattle
-Holy Nova
-2
-2
-2
-5
-Spell,AOE
-Spirit Lash
-1
-1
-1
-2
-Spell,Lifesteal
-Tentacles of N'Zoth
-1
-1
-1
-1
-Deathrattle
-The Coin
-1
-1
-0
-0
-Spell
-Stubborn Gastropod
-2
-2
-1
-2
-Taunt, Poisonous
-Sap
-0
-0
-0
-2
-Spell
-Harvest Golem
-3
-3
-2
-3
-Deathrattle
-Damaged Golem
-1
-1
-2
-1
-N/A
-Eviscerate
-0
-0
-2
-2
-Spell,Combo
-Backstab
-0
-0
-2
-0
-Spell
-Soggoth the Slitherer
-9
-9
-5
-9
-Taunt, Not Targettable by Hero powers or Spells(Special1)
-Bash
-3
-3
-3
-3
-Spell
-Frothing Berserker
-4
-4
-2
-3
-Gain 1 attack when minion damaged(Special2)
-Wolfrider
-1
-3
-3
-3
-Charge
-Toxic Sewer Ooze
-3
-3
-4
-3
-Battlecry
-Explosive Shot(deal 2 to adjacent)
-5
-0
-5
-Spell
 River Crocolisk
-3
-3
 2
+3
+3
 2
 N/A
 Chillwind Yeti
-5
-5
 4
+5
+5
 4
 N/A
-Deadly Poison
-0
-0
-2
-1
-Give weapon +2
-Cold Blood(+4)
-0
-0
-2
-Spell,Combo
-Bluegill Warrior
-1
-1
-2
-2
-Charge
-Frostbolt
-0
-0
+Sen'jn Shieldmasta
 3
-2
-Spell,Freeze
-Ice Lance
-0
-0
-0
-1
-Spell,Special
-Mana Wyrm
-3
-3
-1
-2
-+1 atk per spell
-Windfury
-0
-0
-0
-2
-Spell, Give Windfury
-Abusive Sergeant
-1
-1
-1
-1
-Battlecry
-Rockbiter Weapon
-0
-0
-3
-2
-Spell
-Ironfur Grizzly
-3
-3
-3
-3
+5
+5
+4
 Taunt
-Shieldbearer
-4
-4
-0
-1
-Taunt
-Flametongue Totem
-3
-3
-0
-3
-Adj. have +2 atk
-Holy Light
-6
+Fireball
 6
 0
-2
-Spell
-Forbidden Healing
 0
-0
-0
-0
-Spell
-Binding Heal
-5
-5
-0
-1
-Spell
-Deranged Doctor
-8
-8
-8
-8
-Deathrattle
-Holy Smite
-0
-0
-2
-1
-Spell
-Flash Heal
-5
-5
-0
-1
-Spell
-Flamewreathed Faceless
-7
-7
 4
-Overload
-Truesilver Champion
-2
-2
-4
-4
-Weapon,Heals 2 per atk
-Seal of Light
-4
-4
-2
-2
 Spell
-Corrupted Healbot
-6
-6
-6
-5
-Deathrattle
